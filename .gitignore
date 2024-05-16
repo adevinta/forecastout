@@ -1,0 +1,12 @@
+.DS_Store
+*.pyc
+.idea/
+.__pycache__/
+.pytest_cache/
+.python-version
+.venv
+dist
+
+forecastout/z_data_test
+forecastout/main.py
+/forecastout/z_data_test/

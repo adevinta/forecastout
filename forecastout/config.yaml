@@ -1,0 +1,48 @@
+horizon: 15
+months_to_backtest: 3
+models_to_use: ['autoarima', 'holtwinters', 'prophet'] # "seasonalnaive"
+models_to_fix: ['seasonalnaive']
+models:
+  autoarima:
+    "seasonality": "True"
+    "freq": 12
+    "alpha_intervals": 0.05
+  prophet:
+  holtwinters:
+    "freq": 12
+    "alpha_intervals": 95
+  seasonalnaive:
+    "freq": 12
+    "alpha_intervals": 95
+ensemble:
+  ensemble_method: "average_top_models"
+  average_top_models:
+    n_tops: 3
+  get_best_models:
+disaggregation_features: [
+    "day_num_enc",
+    "month_num_enc",
+    "day_of_week_num_enc",
+    "long_weekends",
+    "value_lag_1",
+    "value_lag_2",
+    "value_lag_3",
+    "value_lag_4",
+    "value_lag_5",
+    "value_lag_6",
+    "value_lag_7",
+    "value_ma_7",
+    "value_ma_30"
+]
+disaggregation_model_selected: "random_forest"
+disaggregation_models:
+  random_forest:
+    param_grid:
+      'n_estimators': [ 150 ]
+      'max_features': [ 2, 3 ]
+      'max_depth': [ 3, 10, 20 ]
+    scoring: 'neg_root_mean_squared_error'
+    n_splits: 5
+    n_repeats: 3
+    refit: True
+    return_train_score: True
