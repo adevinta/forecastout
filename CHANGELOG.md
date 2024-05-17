@@ -2,6 +2,19 @@
 
 
 
+## v0.0.2 (2024-05-17)
+
+### Fix
+
+* fix: add CICD pyproject.toml config ([`ef32191`](https://github.com/adevinta/forecastout/commit/ef321917b45fc8201a57ee60356fcc8374210e7d))
+
+### Unknown
+
+* Merge pull request #3 from adevinta/feature/cicd
+
+fix: add CICD pyproject.toml config ([`7cb5ab0`](https://github.com/adevinta/forecastout/commit/7cb5ab07ea7aa093366056ce0c5b31ade6983470))
+
+
 ## v0.0.1 (2024-05-17)
 
 ### Fix
