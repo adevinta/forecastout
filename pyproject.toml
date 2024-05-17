@@ -47,5 +47,6 @@ allowed_tags = [
     "refactor",
     "test"
 ]
+
 minor_tags = ["feat"]
 patch_tags = ["fix", "perf"]
