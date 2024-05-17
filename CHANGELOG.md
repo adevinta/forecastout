@@ -2,6 +2,19 @@
 
 
 
+## v0.0.3 (2024-05-17)
+
+### Fix
+
+* fix: test semantic release versioning ([`29139bf`](https://github.com/adevinta/forecastout/commit/29139bf1db576bcea3c8625930d32d4310650acd))
+
+### Unknown
+
+* Merge pull request #4 from adevinta/feature/cicd
+
+fix: test semantic release versioning ([`2acfb58`](https://github.com/adevinta/forecastout/commit/2acfb58d1b282bc0d85258d99f55b8239b6c9382))
+
+
 ## v0.0.2 (2024-05-17)
 
 ### Fix
