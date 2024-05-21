@@ -2,6 +2,19 @@
 
 
 
+## v0.0.4 (2024-05-21)
+
+### Fix
+
+* fix: Avoid NA in daily disaggregation ([`ad44525`](https://github.com/adevinta/forecastout/commit/ad44525996395db356eeba0f124d28f5de0325f3))
+
+### Unknown
+
+* Merge pull request #5 from adevinta/feature/fix_na_random_forest
+
+fix: Avoid NA in daily disaggregation ([`f045007`](https://github.com/adevinta/forecastout/commit/f045007c63dd81c447e45cc7feb5a5055d9f22e4))
+
+
 ## v0.0.3 (2024-05-17)
 
 ### Fix
