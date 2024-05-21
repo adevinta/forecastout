@@ -157,7 +157,9 @@ class ForecastOut:
         )
         self.log.info(">> 3.3. Train disaggregation models")
         disaggregation_model_trainer = DisaggregationModelTrainer(
-            df_train=df_train_test.loc[df_train_test['test'] == 0].copy(),
+            df_train=(
+                df_train_test.loc[df_train_test['test'] == 0].dropna().copy()
+             ),
             config=self.config
         )
         disaggregation_model_trained = disaggregation_model_trainer.train(
