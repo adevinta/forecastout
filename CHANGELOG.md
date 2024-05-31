@@ -2,6 +2,29 @@
 
 
 
+## v0.0.5 (2024-05-31)
+
+### Fix
+
+* fix: Update test_main_engine ([`4db6fd9`](https://github.com/adevinta/forecastout/commit/4db6fd98ab07ee9625b11df32f0866419bcb4cf8))
+
+* fix: Update test_remake_monthly_forecast_current_month ([`1cca320`](https://github.com/adevinta/forecastout/commit/1cca320d3401c3282c4b3ec5b2ed9bd05edfc194))
+
+* fix: Update test_autoarima_model ([`576f2ba`](https://github.com/adevinta/forecastout/commit/576f2baf50cbf7b0bd678913acaa86d9f8f907cb))
+
+* fix: Use statsforecast for autoarima ([`1322175`](https://github.com/adevinta/forecastout/commit/132217550dd8cf6067b4ffc250a670a3b723acef))
+
+* fix: Return daily shares from current month only ([`2599360`](https://github.com/adevinta/forecastout/commit/2599360062a243e827f055cbed0a4aba350fccf4))
+
+* fix: Fix of bug of remake_monthly_forecast_current_month including sum_aggregation for avg ([`55af835`](https://github.com/adevinta/forecastout/commit/55af8357bb9704ebf8b78ef97f93cccfb248bf1b))
+
+### Unknown
+
+* Merge pull request #6 from adevinta/feature/fixes_avg_and_arima
+
+Update for package with fixes ([`3224685`](https://github.com/adevinta/forecastout/commit/3224685e5181961a8c4b2658cbf43775af0e7f27))
+
+
 ## v0.0.4 (2024-05-21)
 
 ### Fix

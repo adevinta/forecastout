@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "forecastout"
-version = "0.0.4"
+version = "0.0.5"
 description = ""
 authors = ["alexis-vazquez <alexis.vazquez@adevinta.com>"]
 readme = "README.md"
