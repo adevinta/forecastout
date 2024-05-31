@@ -19,7 +19,8 @@ class ForecastModelFactory:
         if model == "autoarima":
             return AutoArimaModel(
                 df_train_y=df_train_y,
-                dict_config=dict_config
+                dict_config=dict_config,
+                series_train_dates=series_train_dates
             )
         if model == "prophet":
             return ProphetModel(

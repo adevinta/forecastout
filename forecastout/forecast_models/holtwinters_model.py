@@ -7,7 +7,6 @@ import numpy as np
 
 class HoltWintersModel(ForecastModel):
     def __init__(self,
-                 series_train_dates: pd.Series,
                  *args,
                  **kwargs
                  ):
@@ -33,7 +32,7 @@ class HoltWintersModel(ForecastModel):
         )
         # -- Transform data
         df_train_y_holtwinters = pd.concat(
-            [series_train_dates, self.df_train_y],
+            [self.series_train_dates, self.df_train_y],
             axis=1
         )
         df_train_y_holtwinters.columns = ['ds', 'y']

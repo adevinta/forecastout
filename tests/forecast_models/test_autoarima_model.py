@@ -1,14 +1,16 @@
 from forecastout.forecast_models.autoarima_model \
     import AutoArimaModel
 import pandas as pd
+import numpy as np
 
-DICT_CONFIG = {"seasonality": "True", "freq": 12, "alpha_intervals": 0.05}
+DICT_CONFIG = {"seasonality": "True", "freq": 12, "alpha_intervals": 95}
 
 
 def test_autoarima_model():
     model = AutoArimaModel(
-        df_train_y=input_df_value()['value'],
-        dict_config=DICT_CONFIG)
+        df_train_y=input_df()['value'],
+        dict_config=DICT_CONFIG,
+        series_train_dates=input_df()['date'])
     pd.testing.assert_frame_equal(
         model.do_forecast(input_list_dates()),
         expected_df()
@@ -23,7 +25,45 @@ def input_list_dates():
     ]
 
 
-def input_df_value():
+def input_df():
+    date_list = [
+        "2021-01-01",
+        "2021-02-01",
+        "2021-03-01",
+        "2021-04-01",
+        "2021-05-01",
+        "2021-06-01",
+        "2021-07-01",
+        "2021-08-01",
+        "2021-09-01",
+        "2021-10-01",
+        "2021-11-01",
+        "2021-12-01",
+        "2022-01-01",
+        "2022-02-01",
+        "2022-03-01",
+        "2022-04-01",
+        "2022-05-01",
+        "2022-06-01",
+        "2022-07-01",
+        "2022-08-01",
+        "2022-09-01",
+        "2022-10-01",
+        "2022-11-01",
+        "2022-12-01",
+        "2023-01-01",
+        "2023-02-01",
+        "2023-03-01",
+        "2023-04-01",
+        "2023-05-01",
+        "2023-06-01",
+        "2023-07-01",
+        "2023-08-01",
+        "2023-09-01",
+        "2023-10-01",
+        "2023-11-01",
+        "2023-12-01"
+    ]
     value_list = [
         5830302.908,
         7400457.853,
@@ -62,24 +102,26 @@ def input_df_value():
         9920757.596,
         28534471.96,
     ]
-    return pd.DataFrame({'value': value_list})
+    return pd.DataFrame(
+        {'date': pd.to_datetime(date_list), 'value': value_list}
+    )
 
 
 def expected_df():
     forecast_list = [
-        2.617895e+07,
-        3.065635e+07,
-        2.884046e+07
+        25120850.0,
+        30190548.0,
+        27727190.0
     ]
     forecast_lower_list = [
-        2.169750e+07,
-        2.615167e+07,
-        2.400181e+07
+        20804530.0,
+        25783856.0,
+        22653978.0
     ]
     forecast_upper_list = [
-        3.066039e+07,
-        3.516102e+07,
-        3.367910e+07
+        29437170.0,
+        34597240.0,
+        32800402.0
     ]
     model_list = [
         "autoarima",
@@ -92,9 +134,10 @@ def expected_df():
         "2024-03-01"
     ]
     return pd.DataFrame(
-        {'forecast': forecast_list,
-         'forecast_lower': forecast_lower_list,
-         'forecast_upper': forecast_upper_list,
+        {'date': pd.to_datetime(date_list),
+         'forecast': np.float32(forecast_list),
+         'forecast_lower': np.float32(forecast_lower_list),
+         'forecast_upper': np.float32(forecast_upper_list),
          'model': model_list,
-         'date': pd.to_datetime(date_list)}
+         }
     )
