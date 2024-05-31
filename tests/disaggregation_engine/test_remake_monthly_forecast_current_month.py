@@ -8,7 +8,8 @@ def test_remake_monthly_forecast_current_month():
     pd.testing.assert_frame_equal(
         remake_monthly_forecast_current_month(
             df_daily_forecast=input_df_daily_forecast(),
-            df_actuals=input_df_actuals()
+            df_actuals=input_df_actuals(),
+            sum_aggregation=True
         ),
         expected_df()
     )
