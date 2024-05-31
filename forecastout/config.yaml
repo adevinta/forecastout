@@ -6,7 +6,7 @@ models:
   autoarima:
     "seasonality": "True"
     "freq": 12
-    "alpha_intervals": 0.05
+    "alpha_intervals": 95
   prophet:
   holtwinters:
     "freq": 12

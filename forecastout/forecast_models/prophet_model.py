@@ -5,7 +5,6 @@ import pandas as pd
 
 class ProphetModel(ForecastModel):
     def __init__(self,
-                 series_train_dates: pd.Series,
                  *args,
                  **kwargs
                  ):
@@ -16,7 +15,7 @@ class ProphetModel(ForecastModel):
         # -- Prophet
         # -- Constructor
         df_train_y_prophet = pd.concat(
-            [series_train_dates, self.df_train_y],
+            [self.series_train_dates, self.df_train_y],
             axis=1)
         df_train_y_prophet.columns = ['ds', 'y']
         df_train_y_prophet['ds'] = pd.to_datetime(df_train_y_prophet['ds'])

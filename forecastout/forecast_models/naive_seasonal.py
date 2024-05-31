@@ -6,7 +6,6 @@ import pandas as pd
 
 class NaiveSeasonalModel(ForecastModel):
     def __init__(self,
-                 series_train_dates: pd.Series,
                  *args,
                  **kwargs
                  ):
@@ -24,7 +23,7 @@ class NaiveSeasonalModel(ForecastModel):
         )
         # -- Transform data
         df_train_y_seasonalnaive = (
-            pd.concat([series_train_dates, self.df_train_y], axis=1)
+            pd.concat([self.series_train_dates, self.df_train_y], axis=1)
         )
         df_train_y_seasonalnaive.columns = ['ds', 'y']
         df_train_y_seasonalnaive['ds'] = (

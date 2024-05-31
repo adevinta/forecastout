@@ -1,7 +1,7 @@
 from forecastout.forecast_models.abstract_model import ForecastModel
-from pmdarima.arima import auto_arima
+from statsforecast.models import AutoARIMA
+from statsforecast import StatsForecast
 import pandas as pd
-import numpy as np
 
 
 class AutoArimaModel(ForecastModel):
@@ -13,34 +13,50 @@ class AutoArimaModel(ForecastModel):
                  **kwargs
                  ):
         super(AutoArimaModel, self).__init__(*args, **kwargs)
-        self.arima_model = (
-            auto_arima(self.df_train_y,
-                       seasonal=self.dict_config["seasonality"],
-                       m=self.dict_config["freq"]
-                       )
+        # -- Constructor
+        # -- Initialize autoarima
+        self.autoarima_model = StatsForecast(models=[
+            AutoARIMA(
+                season_length=self.dict_config['freq'],
+                seasonal=self.dict_config['seasonality'])],
+            freq='MS',
+            n_jobs=-1
         )
+        # -- Transform data
+        df_train_y_autoarima = (
+            pd.concat([self.series_train_dates, self.df_train_y], axis=1)
+        )
+        df_train_y_autoarima.columns = ['ds', 'y']
+        df_train_y_autoarima['ds'] = (
+            pd.to_datetime(df_train_y_autoarima['ds'])
+        )
+        df_train_y_autoarima['ds'] = (
+            df_train_y_autoarima['ds'].dt.tz_localize(None)
+        )
+        df_train_y_autoarima['unique_id'] = 'id'
+        # -- Fit forecast_models
+        self.autoarima_model.fit(df_train_y_autoarima)
 
     def do_forecast(self, list_dates: list) -> pd.DataFrame:
-        arima_prediction, arima_conf_int = self.arima_model.predict(
-            len(list_dates),
-            return_conf_int=True,
-            alpha=self.dict_config["alpha_intervals"]
+        # -- Predict
+        autoarima_prediction = self.autoarima_model.predict(
+            h=len(list_dates),
+            level=[self.dict_config['alpha_intervals']]
+        ).reset_index()
+        # -- Transform data for correct output
+        autoarima_prediction = (
+            autoarima_prediction.drop(['unique_id'], axis=1)
         )
-        arima_prediction = pd.concat(
-            [
-                pd.DataFrame(
-                    np.array(arima_prediction.reset_index()[0]),
-                    columns=['forecast']),
-                pd.DataFrame(
-                    arima_conf_int,
-                    columns=['forecast_lower', 'forecast_upper'])
-            ],
-            axis=1)
-        arima_prediction['model'] = 'autoarima'
-        arima_prediction['date'] = list_dates
+        autoarima_prediction.columns = [
+            'date', 'forecast', 'forecast_lower', 'forecast_upper'
+        ]
+        autoarima_prediction['model'] = 'autoarima'
+        autoarima_prediction['date'] = list_dates
         # -- Ensure date
-        arima_prediction['date'] = pd.to_datetime(arima_prediction['date'])
-        return arima_prediction
+        autoarima_prediction['date'] = (
+            pd.to_datetime(autoarima_prediction['date'])
+        )
+        return autoarima_prediction
 
     def get_feature_importance(self):
         return None
