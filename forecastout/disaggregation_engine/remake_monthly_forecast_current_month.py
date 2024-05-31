@@ -3,7 +3,8 @@ import pandas as pd
 
 def remake_monthly_forecast_current_month(
         df_daily_forecast: pd.DataFrame,
-        df_actuals: pd.DataFrame
+        df_actuals: pd.DataFrame,
+        sum_aggregation: bool
 ) -> pd.DataFrame:
     # -- Get actuals of unfinished month
     first_forecast_day = df_daily_forecast['date'].min()
@@ -26,13 +27,22 @@ def remake_monthly_forecast_current_month(
     df_daily_forecast["date"] = (
         df_daily_forecast["date"].astype(str).str[0:7]
     )
-    df_monthly_forecast = (
-        df_daily_forecast
-        .groupby(["date", "model"])
-        [["forecast", "forecast_lower", "forecast_upper"]]
-        .sum()
-        .reset_index()
-    )
+    if sum_aggregation:
+        df_monthly_forecast = (
+            df_daily_forecast
+            .groupby(["date", "model"])
+            [["forecast", "forecast_lower", "forecast_upper"]]
+            .sum()
+            .reset_index()
+        )
+    else:
+        df_monthly_forecast = (
+            df_daily_forecast
+            .groupby(["date", "model"])
+            [["forecast", "forecast_lower", "forecast_upper"]]
+            .mean()
+            .reset_index()
+        )
     df_monthly_forecast['date'] = pd.to_datetime(
         df_monthly_forecast['date'] + '-01'
     )
