@@ -150,8 +150,8 @@ class ForecastOut:
             df=df.copy(),
             current_month=(
                 self.df_monthly.loc[
-                    ~self.df_monthly['value'].isna(), 'date'
-                ].max()
+                    self.df_monthly['value'].isna(), 'date'
+                ].min()
             ),
             granularity_month=False
         )
@@ -192,5 +192,6 @@ class ForecastOut:
     def __remake_monthly_forecast(self):
         self.df_monthly_forecast = remake_monthly_forecast_current_month(
             df_daily_forecast=self.df_daily_forecast.copy(),
-            df_actuals=self.df.copy()
+            df_actuals=self.df.copy(),
+            sum_aggregation=self.sum_aggregation
         )
