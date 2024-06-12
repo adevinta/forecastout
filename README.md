@@ -49,7 +49,7 @@ forecastout = ForecastOut(
 )
 ```
 
-This will directly execute a prediction for 15 months for the inserted time 
+This will directly execute a prediction for 3 months for the inserted time 
 series input. You can access the results as follows:
 
 ```{python, error=TRUE, include=TRUE}
